@@ -1,0 +1,15 @@
+###
+POST http://localhost:3000/api/movies HTTP/1.1
+Content-Type: : application/json
+
+{
+  "id": "1",
+  "postImg": "img",
+  "name": "Spiderman",
+  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sed blandit nulla, et iaculis quam. Vivamus vulputate augue vitae cursus dapibus. Aliquam luctus egestas tortor quis interdum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla aliquam erat eget risus blandit, sodales aliquet augue eleifend. Quisque eu fauciur eu.",
+  "tags": [
+    "tag1",
+    "tag2",
+    "tag3"
+  ]
+}
