@@ -1,20 +1,5 @@
 const mongoose = require('mongoose');
 
-const movieImgSchema = mongoose.Schema({
-    id: {
-        type: Number,
-    },
-    url: {
-        type: String,
-    },
-    urlWide: {
-        type: String,
-    },
-    alt: {
-        type: String,
-    }
-});
-
 const movieSchema = mongoose.Schema({
     id: {
         type: Number,

@@ -9,7 +9,7 @@ const port = process.env.PORT || 3000;
 
 // middlewares
 app.use(express.json());
-app.use('/api', userRoutes, movieRoutes);
+app.use('/api', userRoutes);
 
 
 // routes
