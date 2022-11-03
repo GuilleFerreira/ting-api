@@ -2,12 +2,23 @@ const mongoose = require('mongoose');
 
 const movieSchema = mongoose.Schema({
     id: {
-        type: Number,
-    },
-    postImg: {
         type: String,
     },
-    title: {
+    postImg: {
+        id: {
+            type: String,
+        },
+        url: {
+            type: String,
+        },
+        urlWide: {
+            type: String,
+        },
+        alt: {
+            type: String,
+        }
+    },
+    name: {
         type: String,
     },
     description: {

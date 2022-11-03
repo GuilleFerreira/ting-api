@@ -1,18 +1,18 @@
-### POST USERS
-POST http://localhost:3000/api/users HTTP/1.1
-Content-Type: application/json
-
-{
-  "userid": "2",
-  "username": "admin",
-  "password": "admin"
-}
-
 ### GET USERS
 GET http://localhost:3000/api/users HTTP/1.1
 
 ### GET USERS BY USERNAME
 GET http://localhost:3000/api/users/admin HTTP/1.1
+
+### POST USERS
+POST http://localhost:3000/api/users HTTP/1.1
+Content-Type: application/json
+
+{
+   "userid": "1",
+   "username": "admin",
+   "password": "admin",
+}
 
 ### PUT USERS BY USERNAME
 PUT http://localhost:3000/api/users/admin HTTP/1.1
