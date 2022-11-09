@@ -1,52 +1,21 @@
 const express = require("express");
-const userSchema = require("../models/user");
+const { getUsers, addUser, getUserUsername, removeUserUsername, putUserUsername } = require('../controllers/user');
 
 const router = express.Router();
 
 // get todos los usuarios
-router.get("/users", (req, res) => {
-    userSchema
-        .find()
-        .then((data) => res.json(data))
-        .catch((error) => res.json({ message: error}));
-});
+router.get("/users", getUsers);
 
 // crear usuario
-router.post("/users", (req, res) => {
-    const user = userSchema(req.body);
-    user
-        .save()
-        .then((data) => res.json(data))
-        .catch((error) => res.json({ message: error}));
-});
+router.post("/users", addUser);
 
 // obtener usuario por username
-router.get("/users/:username", (req, res) => {
-    const { username } = req.params;
-    userSchema
-        .find({ username: username })
-        .then((data) => res.json(data))
-        .catch((error) => res.json({ message: error}));
-});
+router.get("/users/:username", getUserUsername);
 
 // actualizar usuario por username
-router.put("/users/:username", (req, res) => {
-    const { username } = req.params;
-    const { password } = req.body;
-    userSchema
-        .updateOne({ username: username }, { $set: { password: password }})
-        .then((data) => res.json(data))
-        .catch((error) => res.json({ message: error}));
-});
+router.put("/users/:username", putUserUsername);
 
 // eliminar usuario por username
-router.delete("/users/:username", (req, res) => {
-    const { username } = req.params;
-    userSchema
-        .remove({ username: username })
-        .then((data) => res.json(data))
-        .catch((error) => res.json({ message: error}));
-});
-
+router.delete("/users/:username", removeUserUsername);
 
 module.exports = router;

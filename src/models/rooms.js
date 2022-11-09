@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const roomsSchema = mongoose.Schema({
-    room_id:{
+    id:{
         type: String,
     },
     seats : [{

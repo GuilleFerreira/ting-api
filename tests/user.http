@@ -9,8 +9,8 @@ POST http://localhost:3000/api/users HTTP/1.1
 Content-Type: application/json
 
 {
-   "userid": "1",
-   "username": "admin",
+   "userid": "12",
+   "username": "admin2",
    "password": "admin",
 }
 
@@ -23,4 +23,4 @@ Content-Type: application/json
 }
 
 ### DELETE USERS BY USERNAME
-DELETE http://localhost:3000/api/users/img HTTP/1.1
+DELETE http://localhost:3000/api/users/admin HTTP/1.1

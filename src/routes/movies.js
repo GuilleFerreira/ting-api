@@ -1,78 +1,30 @@
 const express = require("express");
-const movieSchema = require("../models/movies");
+const { getMovies, addMovie, getMovieID, getMovieName, putMovieName, removeMovieName, getMovieImgWide, getMovieImg } = require('../controllers/movies');
 
 const router = express.Router();
 
 // obtener todas las peliculas
-router.get("/movies", (req, res) => {
-    movieSchema
-        .find()
-        .then((data) => res.json(data))
-        .catch((error) => res.json({ message: error}));
-});
+router.get("/movies", getMovies);
 
 // crear pelicula
-router.post("/movies", (req, res) => {
-    const movie = movieSchema(req.body);
-    movie
-        .save()
-        .then((data) => res.json(data))
-        .catch((error) => res.json({ message: error}));
-});
+router.post("/movies", addMovie);
 
 // obtener pelicula por id
-router.get("/movies/:id", (req, res) => {
-    const { id } = req.params;
-    movieSchema
-        .find({ id: id })
-        .then((data) => res.json(data))
-        .catch((error) => res.json({ message: error}));
-});
+router.get("/movies/:id", getMovieID);
 
 // obtener pelicula por nombre
-router.get("/movies/:name", (req, res) => {
-    const { name } = req.params;
-    movieSchema
-        .find({ name: name })
-        .then((data) => res.json(data))
-        .catch((error) => res.json({ message: error}));
-});
+router.get("/movies/:name", getMovieName);
 
 // actualizar pelicula por nombre
-router.put("/movies/:name", (req, res) => {
-    const { name } = req.params;
-    const { postImg, description, tags } = req.body;
-    movieSchema
-        .updateOne({ name: name }, { $set: { postImg: postImg, description: description, tags: tags }})
-        .then((data) => res.json(data))
-        .catch((error) => res.json({ message: error}));
-});
+router.put("/movies/:name", putMovieName);
 
-// eliminar usuario por username
-router.delete("/movies/:name", (req, res) => {
-    const {  name } = req.params;
-    movieSchema
-        .remove({ name: name })
-        .then((data) => res.json(data))
-        .catch((error) => res.json({ message: error}));
-});
+// eliminar pelicula por nombre
+router.delete("/movies/:name", removeMovieName);
 
 // obtener imagen wide de pelicula por nombre
-router.get("/movies/imgwide/:name", (req, res) => {
-    const { name } = req.params;
-    movieSchema
-        .find({ name: name }).select({"_id": 0,"postImg.urlWide": 1})
-        .then((data) => res.json(data))
-        .catch((error) => res.json({ message: error}));
-});
+router.get("/movies/imgwide/:name", getMovieImgWide);
 
 // obtener imagen de pelicula por nombre
-router.get("/movies/img/:name", (req, res) => {
-    const { name } = req.params;
-    movieSchema
-        .find({ name: name }).select({"_id": 0,"postImg.url": 1})
-        .then((data) => res.json(data))
-        .catch((error) => res.json({ message: error}));
-});
+router.get("/movies/img/:name", getMovieImg);
 
 module.exports = router;
