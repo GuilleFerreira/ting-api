@@ -1,0 +1,54 @@
+### GET ALL MOVIES
+GET http://localhost:3000/api/movies HTTP/1.1
+
+### GET MOVIE BY NAME
+GET http://localhost:3000/api/movies/Spiderman HTTP/1.1
+
+### POST MOVIES
+POST http://localhost:3000/api/movies HTTP/1.1
+Content-Type: application/json
+
+{
+   "id":"1",
+   "postImg":{
+      "id":"imagen1",
+      "url":"/assets/images/spider.jpg",
+      "urlWide":"/assets/images/spider-wide.jpg",
+      "alt":"img1"
+   },
+   "name":"Spiderman",
+   "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sed blandit nulla, et iaculis quam. Vivamus vulputate augue vitae cursus dapibus. Aliquam luctus egestas tortor quis interdum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla aliquam erat eget risus blandit, sodales aliquet augue eleifend. Quisque eu fauciur eu.",
+   "tags":[
+      "tag1",
+      "tag2",
+      "tag3"
+   ]
+}
+
+### PUT MOVIES BY NAME
+PUT http://localhost:3000/api/movies/Spiderman HTTP/1.1
+Content-Type: application/json
+
+{
+   "postImg":{
+      "id":"imagen2",
+      "url":"/assets/images/SpidermanEpic.jpg",
+      "urlWide":"/assets/images/spider-wide.jpg",
+      "alt":"img1"
+   },
+   "description":"Lorem ipsum",
+   "tags":[
+      "tag4",
+      "tag5",
+      "tag6"
+   ]
+}
+
+### DELETE MOVIES BY NAME
+DELETE http://localhost:3000/api/movies/Spiderman HTTP/1.1
+
+### GET MOVIE WIDE IMG BY NAME
+GET http://localhost:3000/api/movies/imgwide/Spiderman HTTP/1.1
+
+### GET MOVIE IMG BY NAME
+GET http://localhost:3000/api/movies/img/Spiderman HTTP/1.1

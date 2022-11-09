@@ -1,0 +1,31 @@
+### GET ALL EXTRAS
+GET http://localhost:3000/api/extras HTTP/1.1
+
+### GET EXTRA POR ID
+GET http://localhost:3000/api/extras/1 HTTP/1.1
+
+### GET EXTRA PRICE POR ID
+GET http://localhost:3000/api/extras/price/1 HTTP/1.1
+
+
+### POST EXTRA
+POST http://localhost:3000/api/extras HTTP/1.1
+Content-Type: application/json
+
+{
+   "id":"4",
+   "name":"Extra 1",
+   "price": 10,
+   "img": "imagen.png"
+}
+
+### PUT EXTRAS BY ID
+PUT http://localhost:3000/api/extras/1 HTTP/1.1
+Content-Type: application/json
+
+{
+    "price": 505
+}
+
+### DELETE EXTRAS BY ID
+DELETE http://localhost:3000/api/extras/3 HTTP/1.1
