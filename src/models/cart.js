@@ -1,30 +1,26 @@
 const mongoose = require('mongoose');
 
-const funcionesSchema = mongoose.Schema({
-    id: {
+const cartSchema = mongoose.Schema({
+    username : {
         type: String,
     },
-    movie: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'movies',
+    movie : {
+        type: String,
     },
     theater: {
         type: String,
     },
-    date: {
+    date : {
         type: String,
     },
-    time: {
+    time : {
         type: String,
     },
-    price: {
-        type: Number,
-    },
-    room: [{
+    exhibition: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'rooms',
-    }],
-    seatsunavailable: [{
+        ref: 'exhibition',
+    },
+    seats : [{
         row: {
             type: Number,
         },
@@ -37,7 +33,16 @@ const funcionesSchema = mongoose.Schema({
         available: {
             type: Boolean,
         }
-    }]
+    }],
+    selectedExtras: [{
+        extra : {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'extras',
+        },
+        quantity: {
+            type: Number,
+        }
+    }],
 });
 
-module.exports = mongoose.model('Funciones', funcionesSchema);
+module.exports = mongoose.model('Cart', cartSchema);

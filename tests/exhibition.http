@@ -1,0 +1,17 @@
+### GET ALL EXHIBITIONS
+GET http://localhost:3000/api/exhibition HTTP/1.1
+
+### POST EXHIBITION
+POST http://localhost:3000/api/exhibition HTTP/1.1
+Content-Type: application/json
+
+{
+   "id":"2",
+   "movie": "6362e742c2146bd85344ff58",
+   "theater":"Tres Cruces",
+   "date":"2022-11-30",
+   "time":"21:00",
+   "price":100,
+   "room":[ "636d75e2ed72891bac6a71a1" ],
+   "seatsunavailable":[]
+}
