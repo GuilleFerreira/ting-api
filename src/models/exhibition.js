@@ -20,10 +20,10 @@ const exhibitionSchema = mongoose.Schema({
     price: {
         type: Number,
     },
-    room: [{
+    room: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'rooms',
-    }],
+    },
     seatsunavailable: [{
         row: {
             type: Number,
