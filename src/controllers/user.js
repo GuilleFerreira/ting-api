@@ -2,6 +2,26 @@ const { response } = require('express');
 const User = require('../models/user');
 const userSchema = require('../models/user');
 
+const validateUser = async(req, res = response) => {
+    const { username, password } = req.body;
+
+    try{
+        const user = await User.findOne({ username : username, password : password});
+        
+        if(user){
+            return res.status(200).json(user);
+        } else {
+            return res.status(200).send('No se pudo procesar su solicitud');
+        }
+    }catch(error){
+        return res.status(500).send('Ha ocurrido un problema');
+    }
+}
+
+////////////////////////////////////////////////////////
+//           COSAS INNECESARIAS                       //
+////////////////////////////////////////////////////////
+
 //Obtener todos los usuarios
 const getUsers = async(req, res = response) => {
 
@@ -97,6 +117,11 @@ const removeUserUsername = async(req, res = response) => {
     }
 
 }
+
+
+////////////////////////////////////////////////////////
+//           FIN COSAS INNECESARIAS                   //
+////////////////////////////////////////////////////////
 
 
 module.exports = {

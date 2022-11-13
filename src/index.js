@@ -9,13 +9,14 @@ const extrasRoutes = require('./routes/extras');
 const roomsRoutes = require('./routes/rooms');
 const exhibitionRoutes = require('./routes/exhibition');
 const purchasesRoutes = require('./routes/purchases');
+const cartRoutes = require('./routes/cart');
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 // middlewares
 app.use(express.json());
-app.use('/api', userRoutes, movieRoutes, extrasRoutes, roomsRoutes, exhibitionRoutes, purchasesRoutes);
+app.use('/api', userRoutes, movieRoutes, extrasRoutes, roomsRoutes, exhibitionRoutes, purchasesRoutes, cartRoutes);
 
 
 // routes
