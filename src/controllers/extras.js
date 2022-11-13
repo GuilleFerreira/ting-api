@@ -19,6 +19,27 @@ const getExtras = async(req, res = response) => {
 
 }
 
+//Buscar precio del extra por ID
+const getExtraPriceID = async(req, res = response) => {
+
+    try{
+        const extra = await Extras.find({id : req.params.id}).select({"_id": 0,"price": 1});
+
+        if(extra){
+            return res.status(200).json(extra);
+        }
+        return res.status(400).send('No se pudo procesar su solicitud');
+        
+    }catch(error){
+        return res.status(500).send('Ha ocurrido un problema');
+    }
+
+}
+
+////////////////////////////////////////////////////////
+//           COSAS INNECESARIAS                       //
+////////////////////////////////////////////////////////
+
 //Añadir extras
 const addExtras = async(req, res = response) => {
 
@@ -61,22 +82,7 @@ const getExtraID = async(req, res = response) => {
 
 }
 
-//Buscar precio del extra por ID
-const getExtraPriceID = async(req, res = response) => {
 
-    try{
-        const extra = await Extras.find({id : req.params.id}).select({"_id": 0,"price": 1});
-
-        if(extra){
-            return res.status(200).json(extra);
-        }
-        return res.status(400).send('No se pudo procesar su solicitud');
-        
-    }catch(error){
-        return res.status(500).send('Ha ocurrido un problema');
-    }
-
-}
 
 
 //Actualizar extra por ID
@@ -115,6 +121,10 @@ const removeExtraID = async(req, res = response) => {
     }
 
 }
+
+////////////////////////////////////////////////////////
+//           FIN COSAS INNECESARIAS                   //
+////////////////////////////////////////////////////////
 
 
 module.exports = {
