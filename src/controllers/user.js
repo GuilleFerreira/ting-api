@@ -61,6 +61,8 @@ const getUserUsername = async(req, res = response) => {
 
 }
 
+
+
 //Actualizar usuario por username
 const putUserUsername = async(req, res = response) => {
     const { username } = req.params;
