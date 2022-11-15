@@ -23,7 +23,26 @@ const getExhibition = async(req, res = response) => {
 
 }
 
-//Añadir exhibition
+//Obtener theater por nombre de la pelicula
+const getTheaterByMovie = async(req, res = response) => {
+
+}
+
+//Obtener exhibitions por movieName, Theater y Date
+const getSchedule = async(req, res = response) => {
+
+}
+
+///// ACÁ DEBERIA IR LA FUNCION DE BUILD ROOM, QUE UTILIZA
+///// GetAsientosOcupados y GetSala para crear la sala
+//Obtener asientos ocupados
+
+
+
+
+
+
+//Añadir exhibition (( INNECESARIO ))
 const addExhibition = async(req, res = response) => {
 
     const exhibitionNew = exhibitionSchema(req.body);
