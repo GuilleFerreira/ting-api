@@ -6,7 +6,7 @@ const extrasSchema = require('../models/extras');
 const getExtras = async(req, res = response) => {
 
     try{
-        const extra = await Extras.find({});
+        const extra = await Extras.find({}).select({"_id": 0,"id" : 1,"name": 1, "price": 1, "img":1});
 
         if(extra){
             return res.status(200).json(extra);
