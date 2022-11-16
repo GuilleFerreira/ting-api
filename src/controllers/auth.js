@@ -13,7 +13,6 @@ const expiresInSec = 20;
 const validateUserAndPassword = async (username, password) => {
     let response;
     await User.findOne({ username: username, password: password }).then((user) => {
-        console.log("user", user);
         if (user) {
             response = true;
         }
@@ -75,11 +74,6 @@ const postLogin = async (req, res = response) => {
         res.sendStatus(401);
     }
 }
-console.log("path.join() : ", path.join());
-// outputs .
-console.log("path.resolve() : ", path.resolve());
-
-console.log("dirname", __dirname);
 
 const RSA_PRIVATE_KEY = fs.readFileSync(path.join(__basepath, 'keys/rsa_private.pem'));
 

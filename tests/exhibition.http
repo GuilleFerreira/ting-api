@@ -1,6 +1,8 @@
 ### GET ALL EXHIBITIONS
 GET http://localhost:3000/api/exhibition HTTP/1.1
 
+### GET ALL EXHIBITIONS
+GET http://localhost:3000/api/exhibition/theater/Avatar
 ### POST EXHIBITION
 POST http://localhost:3000/api/exhibition HTTP/1.1
 Content-Type: application/json

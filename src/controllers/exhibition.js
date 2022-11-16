@@ -24,9 +24,20 @@ const getExhibition = async(req, res = response) => {
 }
 
 //Obtener theater por nombre de la pelicula
-const getTheaterByMovie = async(req, res = response) => {
-
+const getTheatersByMovie = async(req, res = response) => {
+    try{
+        const movies = await Exhibition.distinct("theater");
+        console.log(movies);
+        if(movies){
+            return res.status(200).json(movies);
+        }
+        return res.status(400).send('No se pudo procesar su solicitud');
+        
+    }catch(error){
+        return res.status(500).send('Ha ocurrido un problema');
+    }
 }
+
 
 //Obtener exhibitions por movieName, Theater y Date
 const getSchedule = async(req, res = response) => {
@@ -69,5 +80,6 @@ const addExhibition = async(req, res = response) => {
 
 module.exports = {
     getExhibition,
+    getTheatersByMovie,
     addExhibition
 }
