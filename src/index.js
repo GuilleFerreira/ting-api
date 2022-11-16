@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 //require('dotenv').config();
+const cors = require('cors');
+
 
 const connectDB = require('./server/db');
 // required Routes
@@ -10,6 +12,7 @@ const extrasRoutes = require('./routes/extras');
 const roomsRoutes = require('./routes/rooms');
 const exhibitionRoutes = require('./routes/exhibition');
 const purchasesRoutes = require('./routes/purchases');
+const cartRoutes = require('./routes/cart');
 const loginUser = require('./routes/login');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -22,6 +25,7 @@ const port = process.env.PORT || 3000;
 
 // middlewares
 app.use(express.json());
+
 // adding Helmet to enhance your API's security
 app.use(helmet());
 
@@ -41,7 +45,8 @@ app.use(function (err, req, res, next) {
   }
 });
 
-app.use('/api', userRoutes, movieRoutes, extrasRoutes, roomsRoutes, exhibitionRoutes, purchasesRoutes, loginUser);
+app.use('/api', userRoutes, movieRoutes, extrasRoutes, roomsRoutes, exhibitionRoutes, purchasesRoutes, cartRoutes, loginUser);
+
 
 
 // routes

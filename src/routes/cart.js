@@ -1,5 +1,5 @@
 const express = require("express");
-const { addCartUsername, getCartUsername } = require('../controllers/cart');
+const { addCartUsername, getCartUsername,putCartUsername } = require('../controllers/cart');
 
 const router = express.Router();
 
@@ -8,5 +8,8 @@ router.get("/cart/:username", getCartUsername);
 
 // crear carrito
 router.post("/cart", addCartUsername);
+
+// obtener carrito del usuario
+router.put("/cart/:username", putCartUsername);
 
 module.exports = router;

@@ -19,49 +19,7 @@ const getMovies = async(req, res = response) => {
 
 }
 
-//Añadir movie
-const addMovie = async(req, res = response) => {
-
-    const movieNew = moviesSchema(req.body);
-
-    try{
-        const movie = await Movies.findOne({ id : movieNew.id});
-
-        if(movie){
-            return res.status(400).send('Ya existe una imagen con este id');
-        }
-
-        await movieNew.save();
-
-        return res.status(201).json({
-            ok: true,
-            uid: movieNew._id
-        });
-        
-    }catch(error){
-        return res.status(500).send('Ha ocurrido un problema');
-    }
-
-}
-
-//Buscar movie por id
-const getMovieID = async(req, res = response) => {
-
-    try{
-        const movie = await Movies.find({ id : req.params.id});
-
-        if(movie){
-            return res.status(200).json(movie);
-        }
-        return res.status(400).send('No se pudo procesar su solicitud');
-        
-    }catch(error){
-        return res.status(500).send('Ha ocurrido un problema');
-    }
-
-}
-
-//Buscar movie por nombre
+//Obtener movie por nombre
 const getMovieName = async(req, res = response) => {
 
     try{
@@ -112,6 +70,52 @@ const getMovieImg = async(req, res = response) => {
 
 }
 
+/////////////////////////////////////////////////////////////////
+//            COSAS INNECESARIAS, BORRAR LUEGO                 //
+/////////////////////////////////////////////////////////////////
+
+//Añadir movie
+const addMovie = async(req, res = response) => {
+
+    const movieNew = moviesSchema(req.body);
+
+    try{
+        const movie = await Movies.findOne({ id : movieNew.id});
+
+        if(movie){
+            return res.status(400).send('Ya existe una imagen con este id');
+        }
+
+        await movieNew.save();
+
+        return res.status(201).json({
+            ok: true,
+            uid: movieNew._id
+        });
+        
+    }catch(error){
+        return res.status(500).send('Ha ocurrido un problema');
+    }
+
+}
+
+//Buscar movie por id
+const getMovieID = async(req, res = response) => {
+
+    try{
+        const movie = await Movies.find({ id : req.params.id});
+
+        if(movie){
+            return res.status(200).json(movie);
+        }
+        return res.status(400).send('No se pudo procesar su solicitud');
+        
+    }catch(error){
+        return res.status(500).send('Ha ocurrido un problema');
+    }
+
+}
+
 //Actualizar movie por name
 const putMovieName = async(req, res = response) => {
     const { name } = req.params;
@@ -148,7 +152,9 @@ const removeMovieName = async(req, res = response) => {
 
 }
 
-
+////////////////////////////////////////////////////////
+//            FIN COSAS INNECESARIAS                  //
+////////////////////////////////////////////////////////
 
 module.exports = {
     getMovies,
