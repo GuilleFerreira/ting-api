@@ -50,11 +50,7 @@ app.get("/", (req, res) => {
 });
 
 connectDB();
-//mongodb connection
-/* mongoose.connect(process.env.MONGODB_URI)
-.then(() => console.log("Conectado a MongoDB Atlas"))
-.catch(err => console.log(err));
- */
+
 app.listen(port, () => {
   console.log('Server is running on port ', port);
 });
