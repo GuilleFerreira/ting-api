@@ -1,6 +1,8 @@
 const { response } = require('express');
+const { default: mongoose } = require('mongoose');
 const Exhibition = require('../models/exhibition');
 const exhibitionSchema = require('../models/exhibition');
+const roomSchema = require('../models/rooms');
 
 //Obtener todos las exhibition
 const getExhibition = async(req, res = response) => {
@@ -9,7 +11,8 @@ const getExhibition = async(req, res = response) => {
         const exhibition = await Exhibition.aggregate([
             {$lookup: {from: "movies", localField: "movie", foreignField: "_id", as: "pelicula"}},
             {$lookup: {from: "rooms", localField: "room", foreignField: "_id", as: "room"}},
-            {$project: {theater:1, pelicula: {name:1, description:1}, room: {id:1}}}
+            //{$project: {_id:0, id: 1, theater:1, pelicula: {name:1, description:1}, room: {seats:1}}}
+            {$project: {_id:0, id: 1, seatsunavailable:1}}
             ]);
 
         if(exhibition){
@@ -25,20 +28,101 @@ const getExhibition = async(req, res = response) => {
 
 //Obtener theater por nombre de la pelicula
 const getTheaterByMovie = async(req, res = response) => {
+    theaters = [];
+    try{
+        const movies = await Exhibition.aggregate([
+            {$lookup: {from: "movies", localField: "movie", foreignField: "_id", as: "pelicula"}},
+            {$match: {"pelicula.name": req.params.movie}},
+            ]);
+
+        if(movies){
+            movies.forEach(movie => {
+                if (theaters.indexOf(movie.theater) === -1) {
+                    theaters.push(movie.theater);
+                  }
+            });
+            var theatersJson = JSON.stringify(theaters);
+            return res.status(200).json(theatersJson);
+        }
+    }
+    catch(error){
+        return res.status(500).send('Ha ocurrido un problema');
+    }
 
 }
 
 //Obtener exhibitions por movieName, Theater y Date
 const getSchedule = async(req, res = response) => {
+    exhibitons = [];
+    try{
+        const movies = await Exhibition.aggregate([
+            {$lookup: {from: "movies", localField: "movie", foreignField: "_id", as: "pelicula"}},
+            {$match: {"pelicula.name": req.params.movie}},
+            ]);
 
+        if(movies){
+            movies.forEach(movie => {
+                if (movie.theater == req.params.theater && movie.date == req.params.date) {
+                    exhibitons.push(movie);
+                  }
+            });
+            return res.status(200).json(exhibitons);
+        }
+    } catch(error){
+        return res.status(500).send('Ha ocurrido un problema');
+    }
 }
 
 ///// ACÁ DEBERIA IR LA FUNCION DE BUILD ROOM, QUE UTILIZA
 ///// GetAsientosOcupados y GetSala para crear la sala
 //Obtener asientos ocupados
 
+const buildRoom = async(req, res = response) => {
+    seats = [];
+    seatsUnavailable = [];
+    seats = await getSala(req.params.id);
+    seatsUnavailable = await getAsientosOcupados(req.params.id);
+    for (let i = 0; i < seatsUnavailable.length; i++) {
+        for (let j = 0; j < seats.length; j++) {
+          if (seatsUnavailable[i].row === seats[j].row && seatsUnavailable[i].seat === seats[j].seat) {
+            seats[j].available = false;
+          }
+        }
+    }
+    console.log(seats);
+    //return seats;
+}
+
+// GET SALA
+async function getSala(id) {
+    const exhibition = await Exhibition.aggregate([
+        {$lookup: {from: "rooms", localField: "room", foreignField: "_id", as: "room"}},
+        { $unwind: "$room" },
+        {$match: {id: id}},
+        {$project: {_id:0, room: {seats:1}}}
+        ]);
+    var asientos = exhibition[0].room.seats;
+    return asientos;
+}
+
+// GET SALA
+async function getAsientosOcupados(id) {
+    seatsUnavailable = [];
+    const exhibition = await Exhibition.aggregate([
+        {$match: {id: id}},
+        {$project: {_id:0, seatsunavailable:1}}
+        ]);
+    var seatsQuantity = exhibition[0].seatsunavailable.length;
+    for (let index = 0; index < seatsQuantity; index++) {
+        seatsUnavailable.push(exhibition[0].seatsunavailable[index]);
+    }
+    return seatsUnavailable;
+}
 
 
+
+
+////////////////////////////////////////////////7
 
 
 
@@ -69,5 +153,8 @@ const addExhibition = async(req, res = response) => {
 
 module.exports = {
     getExhibition,
-    addExhibition
+    addExhibition,
+    getTheaterByMovie,
+    getSchedule,
+    buildRoom
 }

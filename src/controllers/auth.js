@@ -7,7 +7,12 @@ var path = require('path');
 
 var { expressjwt: jwt } = require("express-jwt");
 
+
+const RSA_PRIVATE_KEY = fs.readFileSync(path.resolve('../keys/rsa_private.pem'));
+const RSA_PUBLIC_KEY = fs.readFileSync(path.resolve('../keys/rsa_public.pem'));
+
 const expiresInSec = 20; 
+
 
 //Buscar usuario por username
 const validateUserAndPassword = async (username, password) => {
