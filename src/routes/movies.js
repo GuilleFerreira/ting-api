@@ -1,11 +1,14 @@
 const express = require("express");
 const verifyToken = require('../controllers/auth');
-const { getMovies, addMovie, getMovieID, getMovieName, putMovieName, removeMovieName, getMovieImgWide, getMovieImg } = require('../controllers/movies');
+const { getMovies, addMovie, getMovieID, getMovieName, putMovieName, removeMovieName, getMovieImgWide, getMovieImg, getMoviesList } = require('../controllers/movies');
 
 const router = express.Router();
 
 // obtener todas las peliculas
 router.get("/movies", [verifyToken.checkIfAuthenticated], getMovies);
+
+// obtener todas las peliculas
+router.get("/movieslist", [verifyToken.checkIfAuthenticated], getMoviesList);
 
 // crear pelicula
 router.post("/movies", addMovie);

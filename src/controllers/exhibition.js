@@ -2,7 +2,6 @@ const { response } = require('express');
 const { default: mongoose } = require('mongoose');
 const Exhibition = require('../models/exhibition');
 const exhibitionSchema = require('../models/exhibition');
-const roomSchema = require('../models/rooms');
 
 //Obtener todos las exhibition
 const getExhibition = async(req, res = response) => {
@@ -31,18 +30,17 @@ const getTheaterByMovie = async(req, res = response) => {
     theaters = [];
     try{
         const movies = await Exhibition.aggregate([
-            {$lookup: {from: "movies", localField: "movie", foreignField: "_id", as: "pelicula"}},
-            {$match: {"pelicula.name": req.params.movie}},
+            {$lookup: {from: "movies", localField: "movie", foreignField: "_id", as: "movie"}},
+            {$match: { "movie.name" : req.params.movie.slice(1) }},
             ]);
 
         if(movies){
             movies.forEach(movie => {
-                if (theaters.indexOf(movie.theater) === -1) {
+                if (theaters.includes(movie.theater) == false) {
                     theaters.push(movie.theater);
-                  }
+                }
             });
-            var theatersJson = JSON.stringify(theaters);
-            return res.status(200).json(theatersJson);
+            return res.status(200).json(theaters);
         }
     }
     catch(error){
@@ -53,7 +51,7 @@ const getTheaterByMovie = async(req, res = response) => {
 
 //Obtener exhibitions por movieName, Theater y Date
 const getSchedule = async(req, res = response) => {
-    exhibitons = [];
+    exhibitions = [];
     try{
         const movies = await Exhibition.aggregate([
             {$lookup: {from: "movies", localField: "movie", foreignField: "_id", as: "pelicula"}},
@@ -63,10 +61,10 @@ const getSchedule = async(req, res = response) => {
         if(movies){
             movies.forEach(movie => {
                 if (movie.theater == req.params.theater && movie.date == req.params.date) {
-                    exhibitons.push(movie);
+                    exhibitions.push(movie);
                   }
             });
-            return res.status(200).json(exhibitons);
+            return res.status(200).json(exhibitions);
         }
     } catch(error){
         return res.status(500).send('Ha ocurrido un problema');

@@ -1,4 +1,5 @@
 const { response } = require('express');
+const movies = require('../models/movies');
 const Movies = require('../models/movies');
 const moviesSchema = require('../models/movies');
 
@@ -10,6 +11,27 @@ const getMovies = async(req, res = response) => {
 
         if(movie){
             return res.status(200).json(movie);
+        }
+        return res.status(400).send('No se pudo procesar su solicitud');
+        
+    }catch(error){
+        return res.status(500).send('Ha ocurrido un problema');
+    }
+
+}
+
+//Obtener todos las movies
+const getMoviesList = async(req, res = response) => {
+    moviess = [];
+    try{
+        const movie = await Movies.find({}).select({"_id": 0,"name": 1});
+        
+        if(movie){
+            movie.forEach(moviee => {
+                moviess.push(moviee.name);
+            });
+
+            return res.status(200).json(moviess);
         }
         return res.status(400).send('No se pudo procesar su solicitud');
         
@@ -164,5 +186,6 @@ module.exports = {
     getMovieImgWide,
     getMovieImg,
     putMovieName,
-    removeMovieName
+    removeMovieName,
+    getMoviesList
 }

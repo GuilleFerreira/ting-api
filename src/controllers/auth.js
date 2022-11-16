@@ -11,7 +11,7 @@ var { expressjwt: jwt } = require("express-jwt");
 const RSA_PRIVATE_KEY = fs.readFileSync(path.resolve('../keys/rsa_private.pem'));
 const RSA_PUBLIC_KEY = fs.readFileSync(path.resolve('../keys/rsa_public.pem'));
 
-const expiresInSec = 20; 
+const expiresInSec = 2000; 
 
 
 //Buscar usuario por username
@@ -85,10 +85,6 @@ console.log("path.join() : ", path.join());
 console.log("path.resolve() : ", path.resolve());
 
 console.log("dirname", __dirname);
-
-const RSA_PRIVATE_KEY = fs.readFileSync(path.join(__basepath, 'keys/rsa_private.pem'));
-
-const RSA_PUBLIC_KEY = fs.readFileSync(path.join(__basepath, 'keys/rsa_public.pem'));
 
 const checkIfAuthenticated = jwt({
     secret: RSA_PUBLIC_KEY,
