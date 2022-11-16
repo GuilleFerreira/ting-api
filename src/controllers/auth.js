@@ -1,15 +1,18 @@
 const { response } = require('express');
 const User = require('../models/user');
-const userSchema = require('../models/user');
 const jwToken = require('jsonwebtoken');
 const fs = require('fs');
+const env = require('../server/environment');
 var path = require('path');
 
 var { expressjwt: jwt } = require("express-jwt");
 
-const RSA_PRIVATE_KEY = fs.readFileSync(path.resolve('../keys/rsa_private.pem'));
 
+const RSA_PRIVATE_KEY = fs.readFileSync(path.resolve('../keys/rsa_private.pem'));
 const RSA_PUBLIC_KEY = fs.readFileSync(path.resolve('../keys/rsa_public.pem'));
+
+const expiresInSec = 20; 
+
 
 //Buscar usuario por username
 const validateUserAndPassword = async (username, password) => {
@@ -64,12 +67,12 @@ const postLogin = async (req, res = response) => {
         console.log("user_id", user_id);
         const jwtBearerToken = jwToken.sign({}, RSA_PRIVATE_KEY, {
             algorithm: 'RS256',
-            expiresIn: 120,
+            expiresIn: expiresInSec,
             subject: user_id
         })
         res.status(200).json({
             idToken: jwtBearerToken,
-            expiresIn: 120
+            expiresIn: expiresInSec
         });
 
     } else {
@@ -77,6 +80,15 @@ const postLogin = async (req, res = response) => {
         res.sendStatus(401);
     }
 }
+console.log("path.join() : ", path.join());
+// outputs .
+console.log("path.resolve() : ", path.resolve());
+
+console.log("dirname", __dirname);
+
+const RSA_PRIVATE_KEY = fs.readFileSync(path.join(__basepath, 'keys/rsa_private.pem'));
+
+const RSA_PUBLIC_KEY = fs.readFileSync(path.join(__basepath, 'keys/rsa_public.pem'));
 
 const checkIfAuthenticated = jwt({
     secret: RSA_PUBLIC_KEY,
