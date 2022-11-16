@@ -2,9 +2,12 @@ const express = require('express');
 const mongoose = require('mongoose');
 //require('dotenv').config();
 const cors = require('cors');
-
+const helmet = require('helmet');
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
 
 const connectDB = require('./server/db');
+
 // required Routes
 const userRoutes = require('./routes/user');
 const movieRoutes = require('./routes/movies');
@@ -14,10 +17,7 @@ const exhibitionRoutes = require('./routes/exhibition');
 const purchasesRoutes = require('./routes/purchases');
 const cartRoutes = require('./routes/cart');
 const loginUser = require('./routes/login');
-const cors = require('cors');
-const helmet = require('helmet');
-const morgan = require('morgan');
-const bodyParser = require('body-parser');
+
 
 
 const app = express();
