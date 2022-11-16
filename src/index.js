@@ -2,9 +2,12 @@ const express = require('express');
 const mongoose = require('mongoose');
 //require('dotenv').config();
 const cors = require('cors');
-
+const helmet = require('helmet');
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
 
 const connectDB = require('./server/db');
+
 // required Routes
 const userRoutes = require('./routes/user');
 const movieRoutes = require('./routes/movies');
@@ -14,10 +17,7 @@ const exhibitionRoutes = require('./routes/exhibition');
 const purchasesRoutes = require('./routes/purchases');
 const cartRoutes = require('./routes/cart');
 const loginUser = require('./routes/login');
-const cors = require('cors');
-const helmet = require('helmet');
-const morgan = require('morgan');
-const bodyParser = require('body-parser');
+
 
 
 const app = express();
@@ -55,11 +55,7 @@ app.get("/", (req, res) => {
 });
 
 connectDB();
-//mongodb connection
-/* mongoose.connect(process.env.MONGODB_URI)
-.then(() => console.log("Conectado a MongoDB Atlas"))
-.catch(err => console.log(err));
- */
+
 app.listen(port, () => {
   console.log('Server is running on port ', port);
 });
