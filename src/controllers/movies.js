@@ -1,13 +1,13 @@
 const { response } = require('express');
 const Movies = require('../models/movies');
 const moviesSchema = require('../models/movies');
+const verifyToken = require('../controllers/auth');
 
 //Obtener todos las movies
 const getMovies = async(req, res = response) => {
 
     try{
         const movie = await Movies.find({});
-
         if(movie){
             return res.status(200).json(movie);
         }
