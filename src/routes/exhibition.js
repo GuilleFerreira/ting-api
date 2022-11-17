@@ -13,8 +13,8 @@ router.post("/exhibition", addExhibition);
 router.get("/exhibitions/gettheaters/:movie", getTheaterByMovie);
 
 // obtener exhibitions por movie, theater y date
-router.get("/exhibitions/gettheaters/:movie/:theater/:date", getSchedule);
+router.get("/exhibitions/getschedule/:movie/:theater/:date", getSchedule);
 
-router.get("/exhibitionRoom/:id", buildRoom);
+router.get("/exhibitions/room/:id", buildRoom);
 
 module.exports = router;

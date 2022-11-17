@@ -31,7 +31,7 @@ const getTheaterByMovie = async(req, res = response) => {
     try{
         const movies = await Exhibition.aggregate([
             {$lookup: {from: "movies", localField: "movie", foreignField: "_id", as: "movie"}},
-            {$match: { "movie.name" : req.params.movie.slice(1) }},
+            {$match: { "movie.name" : req.params.movie }},
             ]);
 
         if(movies){
@@ -55,16 +55,11 @@ const getSchedule = async(req, res = response) => {
     try{
         const movies = await Exhibition.aggregate([
             {$lookup: {from: "movies", localField: "movie", foreignField: "_id", as: "pelicula"}},
-            {$match: {"pelicula.name": req.params.movie}},
+            {$match: {"pelicula.name": req.params.movie, theater: req.params.theater, date: req.params.date}},
             ]);
 
         if(movies){
-            movies.forEach(movie => {
-                if (movie.theater == req.params.theater && movie.date == req.params.date) {
-                    exhibitions.push(movie);
-                  }
-            });
-            return res.status(200).json(exhibitions);
+            return res.status(200).json(movies);
         }
     } catch(error){
         return res.status(500).send('Ha ocurrido un problema');
@@ -88,7 +83,7 @@ const buildRoom = async(req, res = response) => {
         }
     }
     console.log(seats);
-    //return seats;
+    return res.status(200).json(seats);
 }
 
 // GET SALA
