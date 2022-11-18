@@ -1,27 +1,30 @@
 const express = require("express");
 const verifyToken = require('../controllers/auth');
-const { getMovies, addMovie, getMovieID, getMovieName, putMovieName, removeMovieName, getMovieImgWide, getMovieImg } = require('../controllers/movies');
+const { getMovies, addMovie, getMovieID, getMovieName, putMovieName, removeMovieName, getMovieImgWide, getMovieImg, getMoviesList } = require('../controllers/movies');
 
 const router = express.Router();
 
 // obtener todas las peliculas
-router.get("/movies", [verifyToken.checkIfAuthenticated], getMovies);
+router.get("/movies", getMovies);
+
+// obtener todas las peliculas
+router.get("/movieslist", [verifyToken.checkIfAuthenticated], getMoviesList);
 
 // crear pelicula
 router.post("/movies", addMovie);
 
 // obtener pelicula por id
-router.get("/movies/:id", [verifyToken.checkIfAuthenticated], getMovieID);
+//router.get("/movie/:id", [verifyToken.checkIfAuthenticated], getMovieID);
 
 // obtener pelicula por nombre
-router.get("/movies/:name", [verifyToken.checkIfAuthenticated], getMovieName);
+router.get("/movie/:name", [verifyToken.checkIfAuthenticated], getMovieName);
 
 
 // actualizar pelicula por nombre
-router.put("/movies/:name", putMovieName);
+router.put("/movie/:name", putMovieName);
 
 // eliminar pelicula por nombre
-router.delete("/movies/:name", removeMovieName);
+router.delete("/movie/:name", removeMovieName);
 
 // obtener imagen wide de pelicula por nombre
 router.get("/movies/imgwide/:name", getMovieImgWide);

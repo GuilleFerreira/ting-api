@@ -6,9 +6,13 @@ const cartSchema = require('../models/cart');
 const getCartUsername = async(req, res = response) => {
 
     try{
-        const cart = await Cart.find({ username : req.params.username});
+        const cart = await Cart.find({ username : req.params.username}).select({"_id": 0});
 
         if(cart){
+            if(cart.length == 0){
+                addCart(req.params.username);
+                return res.status(200).json("Cart created");
+            }
             return res.status(200).json(cart);
         }
         return res.status(400).send('No se pudo procesar su solicitud');
@@ -19,14 +23,31 @@ const getCartUsername = async(req, res = response) => {
 
 }
 
+function addCart(username) {
+    const cart = {
+        username: username,
+        movie: "",
+        theater: "",
+        date: "",
+        time: "",
+        exhibition: "",
+        seats: [],
+        selectedExtras: []
+    };
+    const cartNew = cartSchema(cart);
+    cartNew.save();
+    return;
+}
+
 //Actualizar cart por username
 const putCartUsername = async(req, res = response) => {
-    const { username } = req.params;
-    const { movie, theater, date, time, exhibition, seats, selectedExtras } = req.body;
-
+    const username = req.params.username;
+    const  movie  = req.body.movie;
+    console.log("hola");
+    console.log("username", username, " movie", movie);
     try{
         const cart = await Cart.updateOne({ username: username }, 
-            { $set: { movie: movie, theater: theater, date: date, time: time, exhibition: exhibition, seats: seats, selectedExtras: selectedExtras }});
+            { $set: { movie: movie , theater: theater, date: date, time: time, exhibition: exhibition, seats: seats, selectedExtras: selectedExtras }});
 
         if(cart){
             return res.status(200).json(cart);

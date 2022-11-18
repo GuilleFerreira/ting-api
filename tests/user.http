@@ -27,6 +27,8 @@ DELETE http://localhost:3000/api/users/admin HTTP/1.1
 
 ### GET USERS
 GET http://localhost:3000/api/login HTTP/1.1
+### GET USERS
+GET http://localhost:3000/api/usuario/verify HTTP/1.1
 
 ### POST USERS
 POST http://localhost:3000/api/login HTTP/1.1

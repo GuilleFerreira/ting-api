@@ -8,17 +8,17 @@ var path = require('path');
 var { expressjwt: jwt } = require("express-jwt");
 
 
-const RSA_PRIVATE_KEY = fs.readFileSync(path.resolve('../keys/rsa_private.pem'));
-const RSA_PUBLIC_KEY = fs.readFileSync(path.resolve('../keys/rsa_public.pem'));
+const RSA_PRIVATE_KEY = fs.readFileSync(path.join(__basepath, 'keys/rsa_private.pem'));
 
-const expiresInSec = 20; 
+const RSA_PUBLIC_KEY = fs.readFileSync(path.join(__basepath, 'keys/rsa_public.pem'));
 
+
+const expiresInSec = 2000;
 
 //Buscar usuario por username
 const validateUserAndPassword = async (username, password) => {
     let response;
     await User.findOne({ username: username, password: password }).then((user) => {
-        console.log("user", user);
         if (user) {
             response = true;
         }
@@ -31,14 +31,15 @@ const validateUserAndPassword = async (username, password) => {
     return response;
 }
 
-//Obtener Id del usuario
-const findUserIdForUsername = async (username) => {
+
+//Obtener Id del usuario - NO LO USAMOS MAS PORQUE LE PASAMOS EL USERNAME EN EL TOKEN
+/* const findUserIdForUsername = async (username) => {
     console.log(username);
-    const user_id = await User.findOne({ username: username }) ;
+    const user_id = await User.findOne({ username: username });
     if (user_id) {
         return user_id._id.toString();
     }
-}
+} */
 //Obtener todos los usuarios
 const getLogin = async (req, res = response) => {
     try {
@@ -56,19 +57,13 @@ const getLogin = async (req, res = response) => {
 const postLogin = async (req, res = response) => {
     const username = req.body.username,
         password = req.body.password;
-    console.log("email: " + username);
-    console.log("password: " + password);
-    console.log(req.body);
     const validateUser = await validateUserAndPassword(username, password);
-    console.log("val", validateUser);
     if (validateUser) {
-        user_id = await findUserIdForUsername(username, res);
-
-        console.log("user_id", user_id);
+       // user_id = await findUserIdForUsername(username, res);
         const jwtBearerToken = jwToken.sign({}, RSA_PRIVATE_KEY, {
             algorithm: 'RS256',
             expiresIn: expiresInSec,
-            subject: user_id
+            subject: username
         })
         res.status(200).json({
             idToken: jwtBearerToken,
@@ -80,23 +75,41 @@ const postLogin = async (req, res = response) => {
         res.sendStatus(401);
     }
 }
-console.log("path.join() : ", path.join());
-// outputs .
-console.log("path.resolve() : ", path.resolve());
 
-console.log("dirname", __dirname);
+const checkIfAuthenticated = async (req, res, next) => {
+    const token = req.headers['authorization']
+    console.log("token", token);
+    if (token) {
+        console.log("entre");
+        try {
+             console.log("authorization", token);
+            console.log("Entre al try", token);
+            console.log("PK", RSA_PUBLIC_KEY); 
+            const decodedjwt = jwToken.verify(token, RSA_PUBLIC_KEY);
+            req.user = decodedjwt.sub;
+            console.log("REQ", req.user);
+            return next();
+        } catch (error) {
+            res.status(401).json('Invalid Token')
+        }
+    } else {
+        res.status(401).json('Invalid Token - No token provided')
+    }
+}
 
-const RSA_PRIVATE_KEY = fs.readFileSync(path.join(__basepath, 'keys/rsa_private.pem'));
-
-const RSA_PUBLIC_KEY = fs.readFileSync(path.join(__basepath, 'keys/rsa_public.pem'));
+/* const verifyjwt = async () => {
+    console.log("verifyjwt");
+} 
 
 const checkIfAuthenticated = jwt({
     secret: RSA_PUBLIC_KEY,
     algorithms: ["RS256"]
-});
+});*/
 
 
 module.exports = {
     postLogin,
     checkIfAuthenticated
+    /*         checkIfAuthenticated
+     */
 }
