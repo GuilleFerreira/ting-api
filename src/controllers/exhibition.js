@@ -49,7 +49,7 @@ const getTheaterByMovie = async(req, res = response) => {
 
 }
 
-}
+
 
 
 //Obtener exhibitions por movieName, Theater y Date

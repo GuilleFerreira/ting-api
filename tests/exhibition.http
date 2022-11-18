@@ -22,7 +22,7 @@ Content-Type: application/json
 GET http://localhost:3000/api/exhibitions/gettheaters/Batman HTTP/1.1
 
 ### GET SCHEDULES BY MOVIE NAME, THEATER AND DATE
-GET http://localhost:3000/api/exhibitions/gettheaters/Batman/Tres Cruces/2022-11-28 HTTP/1.1
+GET http://localhost:3000/api/exhibitions/gettheaters/Batman/Tres Cruces/ HTTP/1.1
 
 ### GET SCHEDULES BY MOVIE NAME, THEATER AND DATE
 GET http://localhost:3000/api/exhibitionRoom/1 HTTP/1.1
