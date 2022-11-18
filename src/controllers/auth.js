@@ -8,6 +8,11 @@ var path = require('path');
 var { expressjwt: jwt } = require("express-jwt");
 
 
+const RSA_PRIVATE_KEY = fs.readFileSync(path.join(__basepath, 'keys/rsa_private.pem'));
+
+const RSA_PUBLIC_KEY = fs.readFileSync(path.join(__basepath, 'keys/rsa_public.pem'));
+
+
 const expiresInSec = 2000;
 
 //Buscar usuario por username
@@ -70,11 +75,6 @@ const postLogin = async (req, res = response) => {
         res.sendStatus(401);
     }
 }
-
-const RSA_PRIVATE_KEY = fs.readFileSync(path.join(__basepath, 'keys/rsa_private.pem'));
-
-const RSA_PUBLIC_KEY = fs.readFileSync(path.join(__basepath, 'keys/rsa_public.pem'));
-
 
 const checkIfAuthenticated = async (req, res, next) => {
     const token = req.headers['authorization']
