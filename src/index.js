@@ -16,7 +16,7 @@ const roomsRoutes = require('./routes/rooms');
 const exhibitionRoutes = require('./routes/exhibition');
 const purchasesRoutes = require('./routes/purchases');
 const cartRoutes = require('./routes/cart');
-const loginUser = require('./routes/login');
+const loginUser = require('./routes/auth');
 
 
 

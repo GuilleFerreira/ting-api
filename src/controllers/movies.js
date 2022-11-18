@@ -2,13 +2,13 @@ const { response } = require('express');
 const movies = require('../models/movies');
 const Movies = require('../models/movies');
 const moviesSchema = require('../models/movies');
+const verifyToken = require('../controllers/auth');
 
 //Obtener todos las movies
 const getMovies = async(req, res = response) => {
 
     try{
         const movie = await Movies.find({});
-
         if(movie){
             return res.status(200).json(movie);
         }
@@ -40,6 +40,23 @@ const getMoviesList = async(req, res = response) => {
     }
 
 }
+
+//Obtener movie por nombre
+const getAllMoviesNames = async(req, res = response) => {
+    try{
+        const movies = await Movies.distinct("name");
+        console.log(movies);
+        if(movies){
+            return res.status(200).json(movies);
+        }
+        return res.status(400).send('No se pudo procesar su solicitud');
+        
+    }catch(error){
+        return res.status(500).send('Ha ocurrido un problema');
+    }
+
+}
+
 
 //Obtener movie por nombre
 const getMovieName = async(req, res = response) => {
@@ -180,6 +197,7 @@ const removeMovieName = async(req, res = response) => {
 
 module.exports = {
     getMovies,
+    getAllMoviesNames,
     addMovie,
     getMovieID,
     getMovieName,

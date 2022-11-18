@@ -1,10 +1,12 @@
 const express = require("express");
-const { getExhibition, addExhibition, getTheaterByMovie, getSchedule, buildRoom } = require('../controllers/exhibition');
+const { getExhibition, getTheatersByMovie ,addExhibition, getTheaterByMovie, getSchedule, buildRoom } = require('../controllers/exhibition');
 
 const router = express.Router();
 
 // obtener todas las exhibition
 router.get("/exhibitions", getExhibition);
+
+//router.get("/exhibition/theater/:movie", getTheatersByMovie);
 
 // crear exhibition
 router.post("/exhibition", addExhibition);
