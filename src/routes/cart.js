@@ -10,6 +10,6 @@ router.get("/cart/:username", getCartUsername);
 router.post("/cart", addCartUsername);
 
 // obtener carrito del usuario
-router.put("/cart/:username", putCartUsername);
+router.put("/cart/pepito", putCartUsername);
 
 module.exports = router;

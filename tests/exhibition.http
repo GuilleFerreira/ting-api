@@ -1,5 +1,5 @@
 ### GET ALL EXHIBITIONS
-GET http://localhost:3000/api/exhibition HTTP/1.1
+GET http://localhost:3000/api/exhibitions HTTP/1.1
 
 ### GET ALL EXHIBITIONS
 GET http://localhost:3000/api/exhibition/theater/Avatar
@@ -17,3 +17,12 @@ Content-Type: application/json
    "room":[ "636d75e2ed72891bac6a71a1" ],
    "seatsunavailable":[]
 }
+
+### GET EXHIBITION BY MOVIE NAME
+GET http://localhost:3000/api/exhibitions/gettheaters/Batman HTTP/1.1
+
+### GET SCHEDULES BY MOVIE NAME, THEATER AND DATE
+GET http://localhost:3000/api/exhibitions/gettheaters/Batman/Tres Cruces/2022-11-28 HTTP/1.1
+
+### GET SCHEDULES BY MOVIE NAME, THEATER AND DATE
+GET http://localhost:3000/api/exhibitionRoom/1 HTTP/1.1

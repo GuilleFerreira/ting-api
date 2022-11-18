@@ -17,8 +17,7 @@ const cartSchema = mongoose.Schema({
         type: String,
     },
     exhibition: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'exhibition',
+        type: String,
     },
     seats : [{
         row: {

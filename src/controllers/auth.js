@@ -7,7 +7,8 @@ var path = require('path');
 
 var { expressjwt: jwt } = require("express-jwt");
 
-const expiresInSec = 20;
+
+const expiresInSec = 2000;
 
 //Buscar usuario por username
 const validateUserAndPassword = async (username, password) => {

@@ -1,7 +1,6 @@
 ### GET ALL CARTS
 GET http://localhost:3000/api/cart/guille HTTP/1.1
 
-
 ### POST cart
 
 POST http://localhost:3000/api/cart HTTP/1.1
@@ -13,17 +12,15 @@ Content-Type: application/json
     "theater": "",
     "date": "",
     "time": "",
-    "exhibition": null,
+    "exhibition": "",
     "seats": null,
     "selectedExtras": null
 }
 
 ### PUT cart
-PUT http://localhost:3000/api/cart/guille HTTP/1.1
+PUT http://localhost:3000/api/cart/admin HTTP/1.1
 Content-Type: application/json
 
 {
-    "movie": "111",
-    "date": "333",
-    "time": "444"
+    "movie": "222"
 }
