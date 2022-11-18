@@ -47,7 +47,7 @@ const putCartUsername = async(req, res = response) => {
     console.log("username", username, " movie", movie);
     try{
         const cart = await Cart.updateOne({ username: username }, 
-            { $set: { movie: movie /* , theater: theater, date: date, time: time, exhibition: exhibition, seats: seats, selectedExtras: selectedExtras*/ }});
+            { $set: { movie: movie , theater: theater, date: date, time: time, exhibition: exhibition, seats: seats, selectedExtras: selectedExtras }});
 
         if(cart){
             return res.status(200).json(cart);

@@ -78,12 +78,13 @@ const postLogin = async (req, res = response) => {
 
 const checkIfAuthenticated = async (req, res, next) => {
     const token = req.headers['authorization']
+    console.log("token", token);
     if (token) {
         console.log("entre");
         try {
-        /*     console.log("authorization", token);
+             console.log("authorization", token);
             console.log("Entre al try", token);
-            console.log("PK", RSA_PUBLIC_KEY); */
+            console.log("PK", RSA_PUBLIC_KEY); 
             const decodedjwt = jwToken.verify(token, RSA_PUBLIC_KEY);
             req.user = decodedjwt.sub;
             console.log("REQ", req.user);
