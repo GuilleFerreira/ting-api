@@ -19,6 +19,9 @@ const cartSchema = mongoose.Schema({
     exhibition: {
         type: String,
     },
+    qrcode: {
+        type: String,
+    },
     seats : [{
         row: {
             type: Number,

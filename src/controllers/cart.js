@@ -3,7 +3,7 @@ const Cart = require('../models/cart');
 const cartSchema = require('../models/cart');
 
 //Obtener cart por usuario
-const getCartUsername = async(req, res = response) => {
+const getCart = async(req, res = response) => {
 
     try{
         const cart = await Cart.find({ username : req.params.username}).select({"_id": 0});
@@ -40,15 +40,11 @@ function addCart(username) {
 }
 
 //Actualizar cart por username
-const putCartUsername = async(req, res = response) => {
-    const username = req.params.username;
-    const  movie  = req.body.movie;
-    console.log("hola");
-    console.log("username", username, " movie", movie);
+const putCart = async(req, res = response) => {
     try{
-        const cart = await Cart.updateOne({ username: username }, 
-            { $set: { movie: movie , theater: theater, date: date, time: time, exhibition: exhibition, seats: seats, selectedExtras: selectedExtras }});
-
+        const cart = await Cart.updateOne({ username: req.params.username }, 
+            { $set: { movie: req.body.movie , theater: req.body.theater, date: req.body.date, 
+                time: req.body.time, exhibition: req.body.exhibition, seats: req.body.seats, selectedExtras: req.body.selectedExtras }});
         if(cart){
             return res.status(200).json(cart);
         }
@@ -87,8 +83,34 @@ const addCartUsername = async(req, res = response) => {
 }
 
 
+
+
+
+//Actualizar cart por username
+const genQrCode = async(req, res = response) => {
+    let username = req.user;
+    console.log("entre AL QR");
+    try{
+        const qrcode = Math.random().toString(36).substring(2,9).toUpperCase();
+        console.log("qrcode: " + qrcode);
+        const cart = await Cart.updateOne({ username: username }, 
+            { $set: { qrcode: qrcode }});
+        if(cart){
+            return res.status(200).json(cart);
+        }
+        return res.status(400).send('No se pudo procesar su solicitud');
+        
+    }catch(error){
+        return res.status(500).send('Ha ocurrido un problema');
+    }
+
+}
+
+
+
 module.exports = {
-    getCartUsername,
-    putCartUsername,
+    getCart,
+    putCart,
+    genQrCode,
     addCartUsername
 }
