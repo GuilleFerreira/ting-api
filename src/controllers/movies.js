@@ -79,7 +79,7 @@ const getMovieName = async(req, res = response) => {
 const getMovieImgWide = async(req, res = response) => {
 
     try{
-        const movie = await Movies.find({ name : req.params.name}).select({"_id": 0,"postImg.urlWide": 1});
+        const movie = await Movies.find({ name : req.params.name}).select({"_id": 0,"movieImg.urlWide": 1});
 
         if(movie){
             return res.status(200).json(movie);
@@ -96,7 +96,7 @@ const getMovieImgWide = async(req, res = response) => {
 const getMovieImg = async(req, res = response) => {
 
     try{
-        const movie = await Movies.find({ name : req.params.name}).select({"_id": 0,"postImg.url": 1});
+        const movie = await Movies.find({ name : req.params.name}).select({"_id": 0,"movieImg.url": 1});
 
         if(movie){
             return res.status(200).json(movie);
@@ -158,10 +158,10 @@ const getMovieID = async(req, res = response) => {
 //Actualizar movie por name
 const putMovieName = async(req, res = response) => {
     const { name } = req.params;
-    const { postImg, description, tags } = req.body;
+    const { movieImg, description, tags } = req.body;
 
     try{
-        const movie = await Movies.updateOne({ name: name }, { $set: { postImg: postImg, description: description, tags: tags }})
+        const movie = await Movies.updateOne({ name: name }, { $set: { movieImg: movieImg, description: description, tags: tags }})
 
         if(movie){
             return res.status(200).json(movie);

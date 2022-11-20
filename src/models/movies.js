@@ -4,7 +4,7 @@ const movieSchema = mongoose.Schema({
     id: {
         type: String,
     },
-    postImg: {
+    movieImg: {
         id: {
             type: String,
         },

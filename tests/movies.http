@@ -13,7 +13,7 @@ Content-Type: application/json
 
 {
    "id":"1",
-   "postImg":{
+   "movieImg":{
       "id":"imagen1",
       "url":"/assets/images/spider.jpg",
       "urlWide":"/assets/images/spider-wide.jpg",
@@ -33,7 +33,7 @@ PUT http://localhost:3000/api/movies/Spiderman HTTP/1.1
 Content-Type: application/json
 
 {
-   "postImg":{
+   "movieImg":{
       "id":"imagen2",
       "url":"/assets/images/SpidermanEpic.jpg",
       "urlWide":"/assets/images/spider-wide.jpg",
