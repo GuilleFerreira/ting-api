@@ -1,5 +1,5 @@
 const express = require("express");
-const { getExhibition, getTheatersByMovie ,addExhibition, getTheaterByMovie, getSchedule, buildRoom } = require('../controllers/exhibition');
+const { getExhibition, getTheatersByMovie ,addExhibition, getTheaterByMovie, getSchedule, buildRoom, putSeats } = require('../controllers/exhibition');
 
 const router = express.Router();
 
@@ -10,6 +10,9 @@ router.get("/exhibitions", getExhibition);
 
 // crear exhibition
 router.post("/exhibition", addExhibition);
+
+// editar exhibition asientos
+router.put("/exhibition/seats/:id", putSeats);
 
 // obtener exhibition por nombre de la pelicula
 router.get("/exhibitions/gettheaters/:movie", getTheaterByMovie);

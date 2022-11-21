@@ -82,7 +82,7 @@ const checkIfAuthenticated = async (req, res, next) => {
     if (token) {
         console.log("entre");
         try {
-             console.log("authorization", token);
+            console.log("authorization", token);
             console.log("Entre al try", token);
             console.log("PK", RSA_PUBLIC_KEY); 
             const decodedjwt = jwToken.verify(token, RSA_PUBLIC_KEY);

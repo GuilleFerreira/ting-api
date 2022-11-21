@@ -6,11 +6,11 @@ const cartSchema = require('../models/cart');
 const getCart = async(req, res = response) => {
 
     try{
-        const cart = await Cart.find({ username : req.params.username}).select({"_id": 0});
+        const cart = await Cart.find({ username : req.user}).select({"_id": 0});
 
         if(cart){
             if(cart.length == 0){
-                addCart(req.params.username);
+                addCart(req.user);
                 return res.status(200).json("Cart created");
             }
             return res.status(200).json(cart);
@@ -42,9 +42,9 @@ function addCart(username) {
 //Actualizar cart por username
 const putCart = async(req, res = response) => {
     try{
-        const cart = await Cart.updateOne({ username: req.params.username }, 
+        const cart = await Cart.updateOne({ username: req.user }, 
             { $set: { movie: req.body.movie , theater: req.body.theater, date: req.body.date, 
-                time: req.body.time, exhibition: req.body.exhibition, seats: req.body.seats, selectedExtras: req.body.selectedExtras }});
+                time: req.body.time, exhibition: req.body.exhibition, price : req.body.price,seats: req.body.seats, selectedExtras: req.body.selectedExtras }});
         if(cart){
             return res.status(200).json(cart);
         }
