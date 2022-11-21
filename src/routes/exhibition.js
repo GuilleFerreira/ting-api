@@ -1,25 +1,24 @@
 const express = require("express");
-const { getExhibition, getTheatersByMovie ,addExhibition, getTheaterByMovie, getSchedule, buildRoom, putSeats } = require('../controllers/exhibition');
+const verifyToken = require('../controllers/auth');
+const { getExhibition, addExhibition, getTheaterByMovie, getSchedule, buildRoom, putSeats } = require('../controllers/exhibition');
 
 const router = express.Router();
 
 // obtener todas las exhibition
-router.get("/exhibitions", getExhibition);
-
-//router.get("/exhibition/theater/:movie", getTheatersByMovie);
+router.get("/exhibitions", [verifyToken.checkIfAuthenticated], getExhibition);
 
 // crear exhibition
-router.post("/exhibition", addExhibition);
+router.post("/exhibitions", [verifyToken.checkIfAuthenticated], addExhibition);
 
 // editar exhibition asientos
-router.put("/exhibition/seats/:id", putSeats);
+router.put("/exhibitions/seats/:id", [verifyToken.checkIfAuthenticated], putSeats);
 
 // obtener exhibition por nombre de la pelicula
-router.get("/exhibitions/gettheaters/:movie", getTheaterByMovie);
+router.get("/exhibitions/theaters/:movie", [verifyToken.checkIfAuthenticated], getTheaterByMovie);
 
 // obtener exhibitions por movie, theater y date
-router.get("/exhibitions/getschedule/:movie/:theater/:date", getSchedule);
+router.get("/exhibitions/schedule/:movie/:theater/:date", [verifyToken.checkIfAuthenticated], getSchedule);
 
-router.get("/exhibitions/room/:id", buildRoom);
+router.get("/exhibitions/room/:id", [verifyToken.checkIfAuthenticated], buildRoom);
 
 module.exports = router;
