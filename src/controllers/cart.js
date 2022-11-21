@@ -2,7 +2,6 @@ const { response } = require('express');
 const Cart = require('../models/cart');
 const cartSchema = require('../models/cart');
 
-//Obtener cart por usuario
 const getCart = async(req, res = response) => {
 
     try{
@@ -20,10 +19,10 @@ const getCart = async(req, res = response) => {
     }catch(error){
         return res.status(500).send('Ha ocurrido un problema');
     }
-
 }
 
 function addCart(username) {
+
     const cart = {
         username: username,
         movie: "",
@@ -39,8 +38,8 @@ function addCart(username) {
     return;
 }
 
-//Actualizar cart por username
 const putCart = async(req, res = response) => {
+
     try{
         const cart = await Cart.updateOne({ username: req.user }, 
             { $set: { movie: req.body.movie , theater: req.body.theater, date: req.body.date, 
@@ -53,11 +52,8 @@ const putCart = async(req, res = response) => {
     }catch(error){
         return res.status(500).send('Ha ocurrido un problema');
     }
-
 }
 
-
-//Añadir carrito
 const addCartUsername = async(req, res = response) => {
 
     const cartNew = cartSchema(req.body);
@@ -66,7 +62,7 @@ const addCartUsername = async(req, res = response) => {
         const cart = await Cart.findOne({ username : cartNew.username});
 
         if(cart){
-            return res.status(400).send('Ya existe una imagen con este id');
+            return res.status(400).send('Ya existe un carrito con este id');
         }
 
         await cartNew.save();
@@ -79,20 +75,13 @@ const addCartUsername = async(req, res = response) => {
     }catch(error){
         return res.status(500).send('Ha ocurrido un problema');
     }
-
 }
 
-
-
-
-
-//Actualizar cart por username
 const genQrCode = async(req, res = response) => {
+
     let username = req.user;
-    console.log("entre AL QR");
     try{
         const qrcode = Math.random().toString(36).substring(2,9).toUpperCase();
-        console.log("qrcode: " + qrcode);
         const cart = await Cart.updateOne({ username: username }, 
             { $set: { qrcode: qrcode }});
         if(cart){
@@ -103,10 +92,7 @@ const genQrCode = async(req, res = response) => {
     }catch(error){
         return res.status(500).send('Ha ocurrido un problema');
     }
-
 }
-
-
 
 module.exports = {
     getCart,

@@ -1,9 +1,7 @@
 const { response } = require('express');
-const { default: mongoose } = require('mongoose');
 const Exhibition = require('../models/exhibition');
 const exhibitionSchema = require('../models/exhibition');
 
-//Obtener todos las exhibition
 const getExhibition = async(req, res = response) => {
 
     try{
@@ -22,7 +20,6 @@ const getExhibition = async(req, res = response) => {
     }catch(error){
         return res.status(500).send('Ha ocurrido un problema');
     }
-
 }
 
 // PUT SEATS
@@ -63,18 +60,15 @@ const getTheaterByMovie = async(req, res = response) => {
 
 }
 
-
-
-
 //Obtener exhibitions por movieName, Theater y Date
 const getSchedule = async(req, res = response) => {
+    
     exhibitions = [];
     try{
         const movies = await Exhibition.aggregate([
             {$lookup: {from: "movies", localField: "movie", foreignField: "_id", as: "pelicula"}},
             {$match: {"pelicula.name": req.params.movie, theater: req.params.theater, date: req.params.date}},
             ]);
-
         if(movies){
             return res.status(200).json(movies);
         }
@@ -82,10 +76,6 @@ const getSchedule = async(req, res = response) => {
         return res.status(500).send('Ha ocurrido un problema');
     }
 }
-
-///// ACÁ DEBERIA IR LA FUNCION DE BUILD ROOM, QUE UTILIZA
-///// GetAsientosOcupados y GetSala para crear la sala
-//Obtener asientos ocupados
 
 const buildRoom = async(req, res = response) => {
     seats = [];
@@ -115,7 +105,7 @@ async function getSala(id) {
     return asientos;
 }
 
-// GET SALA
+// GET ASIENTOS OCUPADOS
 async function getAsientosOcupados(id) {
     seatsUnavailable = [];
     const exhibition = await Exhibition.aggregate([
@@ -129,14 +119,7 @@ async function getAsientosOcupados(id) {
     return seatsUnavailable;
 }
 
-
-
-
-////////////////////////////////////////////////7
-
-
-
-//Añadir exhibition (( INNECESARIO ))
+//Añadir exhibition (( TEMPORAL ))
 const addExhibition = async(req, res = response) => {
 
     const exhibitionNew = exhibitionSchema(req.body);
@@ -145,7 +128,7 @@ const addExhibition = async(req, res = response) => {
         const exhibition = await Exhibition.findOne({ id : exhibitionNew.id});
 
         if(exhibition){
-            return res.status(400).send('Ya existe una imagen con este id');
+            return res.status(400).send('Ya existe un exhibition con este id');
         }
 
         await exhibitionNew.save();
@@ -158,7 +141,6 @@ const addExhibition = async(req, res = response) => {
     }catch(error){
         return res.status(500).send('Ha ocurrido un problema');
     }
-
 }
 
 module.exports = {
