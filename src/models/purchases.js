@@ -4,7 +4,7 @@ const purchasesSchema = mongoose.Schema({
     username : {
         type: String,
     },
-    qr : {
+    qrcode : {
         type: String,
     },
     movie : {

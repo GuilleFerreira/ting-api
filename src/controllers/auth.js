@@ -5,7 +5,7 @@ const fs = require('fs');
 const env = require('../server/environment');
 var path = require('path');
 
-var { expressjwt: jwt } = require("express-jwt");
+//var { expressjwt: jwt } = require("express-jwt");
 
 
 const RSA_PRIVATE_KEY = fs.readFileSync(path.join(__basepath, 'keys/rsa_private.pem'));
@@ -13,7 +13,7 @@ const RSA_PRIVATE_KEY = fs.readFileSync(path.join(__basepath, 'keys/rsa_private.
 const RSA_PUBLIC_KEY = fs.readFileSync(path.join(__basepath, 'keys/rsa_public.pem'));
 
 
-const expiresInSec = 2000;
+const expiresInSec = 1800;
 
 //Buscar usuario por username
 const validateUserAndPassword = async (username, password) => {
