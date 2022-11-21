@@ -25,6 +25,20 @@ const getExhibition = async(req, res = response) => {
 
 }
 
+// PUT SEATS
+const putSeats = async(req, res = response) => {
+    try{
+        const exhibition = await Exhibition.updateOne({ id: req.params.id }, { $push: { seatsunavailable: req.body.seatsunavailable } });
+        if(exhibition){
+            return res.status(200).json(exhibition);
+        }
+        return res.status(400).send('No se pudo procesar su solicitud');
+        
+    }catch(error){
+        return res.status(500).send('Ha ocurrido un problema');
+    }
+}
+
 //Obtener theater por nombre de la pelicula
 const getTheaterByMovie = async(req, res = response) => {
     theaters = [];
@@ -152,5 +166,6 @@ module.exports = {
     addExhibition,
     getTheaterByMovie,
     getSchedule,
-    buildRoom
+    buildRoom,
+    putSeats
 }

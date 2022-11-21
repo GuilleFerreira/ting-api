@@ -19,6 +19,9 @@ const cartSchema = mongoose.Schema({
     exhibition: {
         type: String,
     },
+    price: {
+        type: Number,
+    },
     qrcode: {
         type: String,
     },
@@ -37,9 +40,14 @@ const cartSchema = mongoose.Schema({
         }
     }],
     selectedExtras: [{
-        extra : {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'extras',
+        id : {
+            type: String,
+        },
+        name : {
+            type: String,
+        },
+        price : {
+            type: Number,
         },
         quantity: {
             type: Number,

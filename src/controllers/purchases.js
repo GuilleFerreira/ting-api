@@ -25,6 +25,7 @@ const addPurchase = async (req, res) => {
     console.log("body: " + req.body);
     console.log("username: " + req.body.qrcode);
     console.log("movie: " + req.body.movie);
+    
     const purchase = {
         username: req.user,
         qrcode: req.body.purchase[0].qrcode,

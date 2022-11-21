@@ -13,12 +13,8 @@ router.get("/movieslist", [verifyToken.checkIfAuthenticated], getMoviesList);
 // crear pelicula
 router.post("/movies", addMovie);
 
-// obtener pelicula por id
-//router.get("/movie/:id", [verifyToken.checkIfAuthenticated], getMovieID);
-
 // obtener pelicula por nombre
 router.get("/movie/:name", [verifyToken.checkIfAuthenticated], getMovieName);
-
 
 // actualizar pelicula por nombre
 router.put("/movie/:name", putMovieName);
