@@ -16,7 +16,7 @@ const getCart = async(req, res = response) => {
             return res.status(200).json(cart);
         }
         return res.status(400).send('No se pudo procesar su solicitud');
-        
+
     }catch(error){
         return res.status(500).send('Ha ocurrido un problema');
     }
