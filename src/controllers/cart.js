@@ -43,7 +43,7 @@ const putCart = async(req, res = response) => {
     try{
         const cart = await Cart.updateOne({ username: req.user }, 
             { $set: { movie: req.body.movie , theater: req.body.theater, date: req.body.date, 
-                time: req.body.time, exhibition: req.body.exhibition, price : req.body.price,seats: req.body.seats, selectedExtras: req.body.selectedExtras }});
+                time: req.body.time, exhibition: req.body.exhibition, price : req.body.price, total : req.body.total, seats: req.body.seats, selectedExtras: req.body.selectedExtras }});
         if(cart){
             return res.status(200).json(cart);
         }
