@@ -64,8 +64,24 @@ const addPurchase = async (req, res) => {
     }
 }
 
+const payment = async (req, res) => {
+    numberi = Math.floor(Math.random() * 1800) + 1200;
+    valid = Math.floor(Math.random() * 100);
+    if (valid >= 90) {
+        approvedi = false;
+    }
+    else {
+        approvedi = approved;
+    }
+    return res.status(200).json({
+        time: numberi,
+        approved: approvedi
+    });
+}
+
 module.exports = {
     getPurchasesUsername,
     addPurchase,
-    getPurchasesQR
+    getPurchasesQR,
+    payment
 }
