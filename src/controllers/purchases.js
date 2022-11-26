@@ -28,11 +28,11 @@ const addPurchase = async (req, res) => {
     
     const purchase = {
         username: req.user,
-        qrcode: req.body.purchase[0].qrcode,
-        movie: req.body.purchase[0].movie,
-        theater: req.body.purchase[0].theater,
-        date: req.body.purchase[0].date,
-        time: req.body.purchase[0].time,
+        qrcode: req.body.purchase.qrcode,
+        movie: req.body.purchase.movie,
+        theater: req.body.purchase.theater,
+        date: req.body.purchase.date,
+        time: req.body.purchase.time,
     };
     const purchaseNew = purchasesSchema(purchase);
     console.log("purchaseNew: " + purchaseNew);
