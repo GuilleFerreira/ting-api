@@ -50,7 +50,6 @@ const checkIfAuthenticated = async (req, res, next) => {
         try {
             const decodedjwt = jwToken.verify(token, RSA_PUBLIC_KEY);
             req.user = decodedjwt.sub;
-            console.log("User: ");
             return next();
         } catch (error) {
             res.status(401).json('Invalid Token')
