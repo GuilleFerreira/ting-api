@@ -7,9 +7,6 @@ const router = express.Router();
 // obtener todas las exhibition
 router.get("/exhibitions", [verifyToken.checkIfAuthenticated], getExhibition);
 
-// crear exhibition
-router.post("/exhibitions", addExhibition);
-
 // editar exhibition asientos
 router.put("/exhibitions/seats/:id", [verifyToken.checkIfAuthenticated], putSeats);
 
