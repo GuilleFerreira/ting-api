@@ -15,6 +15,7 @@ const purchasesRoutes = require('./routes/purchases');
 const cartRoutes = require('./routes/cart');
 const loginUser = require('./routes/auth');
 const payment = require('./routes/payment');
+
 const app = express();
 const port = 3000;
 
@@ -34,6 +35,7 @@ app.use(function (err, req, res, next) {
 });
 
 app.use('/api', movieRoutes, extrasRoutes, exhibitionRoutes, purchasesRoutes, cartRoutes, loginUser, payment);
+
 
 // routes
 app.get("/", (req, res) => {

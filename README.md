@@ -1,1 +1,1 @@
-# ting-api
+# Ting-API
