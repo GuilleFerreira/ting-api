@@ -47,7 +47,6 @@ const postLogin = async (req, res = response) => {
 const checkIfAuthenticated = async (req, res, next) => {
     const token = req.headers['authorization']
     if (token) {
-        console.log("entre");
         try {
             const decodedjwt = jwToken.verify(token, RSA_PUBLIC_KEY);
             req.user = decodedjwt.sub;

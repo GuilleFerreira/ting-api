@@ -18,6 +18,18 @@ const purchasesSchema = mongoose.Schema({
     },
     time : {
         type: String,
+    },
+    total: {
+        type: Number,
+    },
+    seats : [{
+        type: String,
+    }],
+    extras: [{
+        type: String,
+    }],
+    purchaseDate: {
+        type: String,
     }
 });
 
