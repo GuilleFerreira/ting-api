@@ -135,7 +135,8 @@ const addExhibition = async(req, res = response) => {
 
         return res.status(201).json({
             ok: true,
-            uid: exhibitionNew._id
+            uid: exhibitionNew._id,
+            id: exhibitionNew.id
         });
         
     }catch(error){

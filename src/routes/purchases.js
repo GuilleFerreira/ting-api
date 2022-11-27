@@ -12,6 +12,6 @@ router.get("/mypurchases/:qr", [verifyToken.checkIfAuthenticated], getPurchasesQ
 // crear compra
 router.post("/mypurchases", [verifyToken.checkIfAuthenticated], addPurchase);
 
-router.get("/payment", [verifyToken.checkIfAuthenticated], payment);
+router.get("/mypurchases/payment", payment);
 
 module.exports = router;
