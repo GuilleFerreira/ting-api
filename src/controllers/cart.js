@@ -6,7 +6,7 @@ const getCart = async(req, res = response) => {
 
     try{
         const cart = await Cart.find({ username : req.user}).select({"_id": 0});
-
+        console.log("CART: ", cart)
         if(cart){
             if(cart.length == 0){
                 addCart(req.user);

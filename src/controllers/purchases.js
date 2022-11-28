@@ -1,4 +1,3 @@
-const { response } = require('express');
 const Purchases = require('../models/purchases');
 const purchasesSchema = require('../models/purchases');
 
